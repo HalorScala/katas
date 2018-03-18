@@ -21,8 +21,6 @@ LocalTime.now
 
 val array: Array[Int] = Array(1, 2, 3, 4, 5)
 
-
-
 Solution.solution(array, 0)
 Solution.solution(array, 1)
 Solution.solution(array, 3)
@@ -34,3 +32,12 @@ Solution.solution(array, 7)
 offset(5, 4)
 offset(5, 5)
 offset(5, 6)
+
+/* Comments:
+
+  Off by one errors,
+  testing the offset method directly was helpful
+  perhaps I should have thought about this calculation
+  before starting typing!
+
+ */

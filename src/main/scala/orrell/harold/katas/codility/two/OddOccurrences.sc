@@ -34,3 +34,7 @@ def unpaireds(as: Array[Int]): Set[Int] = {
 unpaireds(array)
 unpaireds(oneTwoOne)
 unpaireds(threeFourThreeThree)
+
+/* Comments:
+  trivial
+ */
