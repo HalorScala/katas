@@ -1,8 +1,12 @@
-import java.time.LocalDateTime
+import java.time.{LocalDateTime, LocalTime}
+
+/*
+  https://app.codility.com/programmers/lessons/1-iterations/binary_gap/
+*/
 
 def binBase[B](z: B)(acc: (B, String) => B)(rest: Int): B = rest match {
   case 0 => z
-  case x => acc(binBase(z)(acc)(Math.floor(rest/2).toInt), (rest % 2).toString)
+  case _ => acc(binBase(z)(acc)(Math.floor(rest/2).toInt), (rest % 2).toString)
 }
 
 //def bin: Int =>  String = binBase("")(_ + _)
@@ -10,6 +14,7 @@ def binBase[B](z: B)(acc: (B, String) => B)(rest: Int): B = rest match {
 //(0 to 30).map(binList).map(_.mkString("")).mkString("\n")
 
 def binaryGap(x: Int): Int = {
+
   case class Tally(maxCount: Int, isCounting: Boolean, currentCount: Int){
     def next(digit: String) = digit match {
       case "1" => Tally(Math.max(currentCount, maxCount), true, 0)
@@ -21,7 +26,7 @@ def binaryGap(x: Int): Int = {
 
 val expecteds = List(0 -> 0, 1 -> 0, 4 -> 0, 5 -> 1, 9 -> 2, 17 -> 3, 34 -> 3)
 
-println("Testing " + LocalDateTime.now())
+println("Testing " + LocalTime.now)
 expecteds.foreach {
   case (dec, exp) => if(!(binaryGap(dec) == exp)) {
     println(s"$dec, ${binaryGap(4)} was not equal to $exp, was ${binaryGap(dec)}")
@@ -82,5 +87,15 @@ expecteds.foreach {
      - Try with a State Monad
      - Read the Red Book on Rand generator and think about modelling state, perhaps
      - learn nomenclature for def xyz: String => Int v.s. def xyz(a: String): Int
+
+  P.S.
+    - looking through the scala collections documentation, https://www.scala-lang.org/api/2.12.3/scala/collection/LinearSeq.html
+    segmentLength does almost what we want, except that it would only return the longest sequence of zeros and not the longest
+    sequence of zeros bounded by 1s
+
+    - is there a collections method thaet groups by segment? (as in segmentLength)
+    - an inefficent but explicit way of doing it using collection methods would be to find the max number of consecutive '0's
+    with segmentLength and use containsSlice with
+       E.G. if segmentLength(_ == 0) is 3, try containsSlice '10001', '1001', etc.
 
  */
